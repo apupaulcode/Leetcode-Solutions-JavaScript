@@ -36,6 +36,7 @@ var lengthOfLongestSubstring = function(s){
 }
 
 
+Sol-3
 var lengthOfLongestSubstring=function(s){
     let n=s.length
     let result=0
@@ -52,3 +53,54 @@ var lengthOfLongestSubstring=function(s){
     }
     return result
 }
+
+
+Sol-4
+var lengthOfLongestSubstring=function(s){
+    if(s.length===0 || s.length===1){
+        return s.length
+    }
+    let result=0
+    let visited=new Array(26).fill(false)
+    let left=0,right=0
+    while(right<s.length){
+        while(visited[s[right].charCodeAt(0)-'a'.charCodeAt(0)]===true){
+            visited[s[left].charCodeAt(0)-'a'.charCodeAt(0)]=false
+            left++
+        }
+        visited[s[right].charCodeAt(0)-'a'.charCodeAt(0)]=true
+        result=Math.max(result,(right-left+1))
+        right++
+    }
+    return result
+}
+
+var lengthOfLongestSubstring=function(s){
+    const n=s.length
+    let result=0
+    const lastIndex=new Array(26).fill(-1)
+    let start=0
+    for(let end=0;end<s.length;end++){
+        start=Math.max(start,lastIndex[s.charCodeAt(end)-'a'.charCodeAt(0)]+1)
+        result=Math.max(result,end-start+1)
+        lastIndex[s.charCodeAt(end)-'a'.charCodeAt(0)]=end
+    }
+    return result
+}
+
+var lengthOfLongestSubstring=function(s){
+    let result=0
+    for(let i=0;i<s.length;i++){
+        let charSet=new Set()
+        for(let j=i;j<s.length;j++){
+            if(charSet.has(s[j])){
+                break
+            }
+            charSet.add(s[j])
+        }
+        result=Math.max(result,charSet.size)
+    }
+    return result
+}
+
+console.log(lengthOfLongestSubstring("geeksforgeeks"))
