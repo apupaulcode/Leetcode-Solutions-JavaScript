@@ -1,0 +1,56 @@
+/**
+ * 4. Median of Two Sorted Arrays
+ * https://leetcode.com/problems/median-of-two-sorted-arrays/
+ * Difficulty: Hard
+ *
+ * There are two sorted arrays nums1 and nums2 of size m and n respectively.
+ *
+ * Find the median of the two sorted arrays.
+ * The overall run time complexity should be O(log (m+n)).
+ *
+ * You may assume nums1 and nums2 cannot be both empty.
+ */
+Solution-1 with O((n + m) × log (n + m)) Time and O(n + m) Space compexity
+var findMedianSortedArrays = function(nums1, nums2){
+    let c=[...nums1,...nums2]
+    c.sort((a,b)=>a-b)
+    let len=c.length
+    if(len%2===0){
+        return (c[len/2]+c[(len/2)-1])/2
+    }else{
+        return c[Math.floor(len/2)]
+    }
+}
+
+solution-2  Use Merge of Merge Sort - O(m + n) Time and O(1) Space complexity
+var findMedianSortedArrays = function(nums1, nums2){
+    let n=nums1.length
+    let m=nums2.length
+    let i=0,j=0
+    let m1=-1,m2=-1
+    for(let count=0;count<=(m+n)/2;count++){
+        m2=m1
+        if(i!=n && j!=m){
+            m1=(nums1[i]>nums2[j])?nums2[j++]:nums1[i++]
+        }else if(i<n){
+            m1=nums1[i++]
+        }else{
+            m1=nums2[j++]
+        }
+    }
+    if((m+n)%2===1) return m1
+    else return (m1+m2)/2
+}
+
+solution-3 
+var findMedianSortedArrays = function(nums1, nums2){
+    const sorted=[...nums1,...nums2].sort((a,b)=>a-b)
+    const index=Math.floor((sorted.length-1)/2)
+    return sorted.length%2===0?(sorted[index]+sorted[index+1])/2:sorted[index]
+}
+
+
+
+let a = [-5, 3, 6, 12, 15];
+let b = [-12, -10, -6, -3, 4, 10];
+console.log(findMedianSortedArrays(a, b));
