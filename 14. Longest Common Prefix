@@ -1,0 +1,93 @@
+Solution-1
+
+var longestCommonPrefix = function(strs){
+    if(strs.length===0){
+        return ""
+    }
+    strs.sort((a,b)=> a.length - b.length)
+    let smallestString=strs[0]
+    let index=smallestString.length
+    for(let i=smallestString.length-1;i>=0;i--){
+        const letter=smallestString[i]
+        for(let j=1;j<strs.length;j++){
+            if(strs[j][i]!==letter){
+                index=i
+                break
+            }
+        }
+    }
+    return smallestString.slice(0,index)
+}
+
+console.log(longestCommonPrefix(["cab", "caz", "cat", "dog"]))
+
+
+
+Solution-2
+var longestCommonPrefix = function(strs){
+    if(strs.length===0){
+        return ""
+    }
+    return strs.reduce((result,current)=>{
+        let i=0
+        while(result[i] && current[i] && result[i]===current[i]){
+            i++
+        }
+        return result.slice(0,i)
+    })
+}
+
+console.log(longestCommonPrefix(["cab", "caz", "cat", "car"]))
+
+
+Solution-3
+function longestCommonPrefix(arr){
+    arr.sort();
+    let first = arr[0];
+    let last = arr[arr.length - 1];
+    let minLength = Math.min(first.length, last.length);
+    let i = 0;
+    while (i < minLength && first[i] === last[i]) {
+        i++;
+    }
+    return first.substring(0, i);
+}
+
+
+Solution-4
+function longestCommonPrefix(strs) {
+  const minLength = strs.reduce(
+    (currentMin, str) => Math.min(currentMin, str.length),
+    Infinity
+  );
+  for (let prefixLength = minLength; prefixLength >= 0; prefixLength--) {
+    const candidatePrefix = strs[0].slice(0, prefixLength);
+    const isCommonPrefix = strs.every(
+      (str) => str.slice(0, prefixLength) === candidatePrefix
+    );
+    if (isCommonPrefix) {
+      return candidatePrefix;
+    }
+  }
+  return "";
+}
+
+console.log(longestCommonPrefix(["cab", "caz", "cat", "car"]));
+
+
+Solution-5
+function longestCommonPrefix(strs){
+    if(strs.length===0){
+        return ''
+    }
+    strs.sort()
+    let first=strs[0],last=strs[strs.length-1]
+    let isCommonPrefix=""
+    for(let i=0;i<Math.min(first.length,last.length);i++){
+        if(first[i]!==last[i]){
+            return isCommonPrefix
+        }
+        isCommonPrefix+=first[i]
+    }
+    return isCommonPrefix
+}
