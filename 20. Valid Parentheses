@@ -47,3 +47,24 @@ function isValid(s) {
   }
   return stack.length===0
 }
+
+
+Solution-3
+const bracketPairs = new Map([
+    ['(', ')'],
+    ['[', ']'],
+    ['{', '}'],
+]);
+function isValid(s){
+    const stack=[]
+    for(let char of s){
+        if(bracketPairs.has(char)){
+            stack.push(bracketPairs.get(char))
+        }else{
+            if(stack.pop()!==char){
+                return false
+            }
+        }
+    }
+    return stack.length===0
+}
