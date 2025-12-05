@@ -1,0 +1,32 @@
+Solution-1
+var judgeSquareSum = function (c){
+    let iter=0,set=new Set()
+    while(iter**2<=c){
+        let square=iter*iter
+        if(square*2===c||set.has(c-square)){
+            return true
+        }
+        set.add(square)
+        iter++
+    }
+    return false
+}
+
+Solution-2
+
+function judgeSquareSum(c){
+    let left=0,right=Math.floor(Math.sqrt(c))
+    while(left<=right){
+        const sumOfSquare=left*left+right+right
+        if(sumOfSquare===c){
+            return true
+        }else if(sumOfSquare<c){
+            left++
+        }else{
+            right--
+        }
+    }
+    return false
+}
+
+console.log(judgeSquareSum(5))
