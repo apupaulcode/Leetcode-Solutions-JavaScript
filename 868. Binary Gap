@@ -1,0 +1,38 @@
+Solution-1
+var binaryGap = function (N){
+    let maxDist=0,currentDist=0
+    while(N>0){
+        const bit=N%2
+        N>>=1
+        if(bit===1){
+            currentDist=1
+            while(N>0 && N%2===0){
+                currentDist++
+                N>>=1
+            }
+            if(N!==0 && currentDist>maxDist) maxDist=currentDist
+        }
+    }
+    return maxDist
+}
+console.log(binaryGap(22))
+
+Theory:
+Binary form of N=22 is 10110, now when N>0 check last bit, in this
+case last bit will be 0 and then remove remove last bit by left shift oparetor N>>=1
+as bit!==1 outer while loop run again, now N is equal to 11 due to left shift and binary will be 1011,
+Now bit will be 1 and remove last bit using N>>=1,now when bit===1 distance counting will be start from here.
+
+Solution-2
+function binaryGap(n){
+    let maxGap=0,previousOnePosition=100,currentPosition=0
+    while(n>0){
+        if((n & 1)===1){
+            maxGap=Math.max(maxGap,currentPosition-previousOnePosition)
+            previousOnePosition=currentPosition
+        }
+        currentPosition++
+        n>>=1
+    }
+    return maxGap
+}
