@@ -1,0 +1,55 @@
+Solution-1function TreeNode(val) {
+    this.val = val;
+    this.left = this.right = null;
+}
+var isSymmetric = function (root){
+    if(root===null){
+        return true
+    }
+    return isSymmetricAux(root.left,root.right)
+}
+function isSymmetricAux(root1,root2){
+    if(root1===null){
+        return root2===null
+    }
+    if(root2===null || root1.val!==root2.val){
+        return false
+    }
+    return (
+        isSymmetricAux(root1.left,root2.right) && 
+        isSymmetricAux(root1.right,root2.left)
+    )
+}
+
+let root = new TreeNode(1);
+root.left = new TreeNode(2);
+root.right = new TreeNode(2);
+
+root.left.left = new TreeNode(3);
+root.left.right = new TreeNode(4);
+
+root.right.left = new TreeNode(4);
+root.right.right = new TreeNode(3);
+
+console.log(isSymmetric(root));
+
+Solution-2
+function isSymmetric(root){
+    if(root===null){
+        return true
+    }
+    return isMirror(root.left,root.right)
+}
+
+function isMirror(leftSub,rightSub){
+    if(leftSub===null && rightSub===null){
+        return true
+    }
+    if(leftSub===null || rightSub===null || leftSub.val!==rightSub.val){
+        return false
+    }
+    return isMirror(leftSub.left,rightSub.right) && isMirror(leftSub.right,rightSub.left)
+}
+
+
+Solution-3
