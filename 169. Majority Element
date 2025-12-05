@@ -1,0 +1,33 @@
+Solution-1
+var majorityElement = function (nums){
+    if(nums.length===0){
+        return -1
+    }
+    let candidates=nums[0],proves=1
+    for(let i=1;i<nums.length;i++){
+        if(nums[i]===candidates){
+            proves++
+        }else{
+            proves--
+            if(proves===0){
+                candidates=nums[i]
+                proves=1
+            }
+        }
+    }
+    return candidates
+}
+
+console.log(majorityElement([2,2,1,1,1,2,2],2))
+
+Solution-2
+function majorityElement(nums){
+    const numMap=new Map()
+    for(let i=0;i<nums.length;i++){
+        numMap.set(nums[i],(numMap.get(nums[i])||0)+1)
+    }
+    const mostOccurred=[...numMap.entries()].sort((a,b)=>b[1]-a[1])[0][0]
+    return mostOccurred
+}
+
+Solution-4
