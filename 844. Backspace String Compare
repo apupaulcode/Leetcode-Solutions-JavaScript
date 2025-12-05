@@ -1,0 +1,64 @@
+Solution-1
+var backspaceCompare = function (S, T){
+    let iterS=S.length-1,iterT=T.length-1,countBack=0
+    while(iterS>=0||iterT>=0){
+        if(iterS>=0 && S.charAt(iterS)==="#"){
+            countBack=0
+            while(iterS>=0 && (countBack>0||S[iterS]==="#")){
+                if(iterS>=0 && S[iterS]==="#"){
+                    countBack++
+                }else{
+                    countBack--
+                }
+                iterS--
+            }
+        }else if(iterT>=0 && T.charAt(iterT)==="#"){
+            countBack=0
+            while(iterT>=0 && (countBack>0 || T[iterT]==="#")){
+                if(iterT>=0 && T[iterT]==="#"){
+                    countBack++
+                }else{
+                    countBack--
+                }
+                iterT--
+            }
+        }else{
+            if(iterT<0 || iterT<0||S.charAt(iterS)!==T.charAt(iterT)){
+                return false
+            }
+            iterS--
+            iterT--
+        }
+    }
+    return iterS<0 && iterT<0
+}
+console.log(backspaceCompare("ab#c","ad#c"))
+
+Solution-2
+function backspaceCompare(S,T){
+    let stackS=[]
+    for(let i=0;i<S.length;i++){
+        if(S.charAt(i)==="#"){
+            stackS.shift()
+        }else{
+            stackS.unshift(S.charAt(i))
+        }
+    }
+    let stackT=[]
+    for(let i=0;i<T.length;i++){
+        if(T.charAt(i)==="#"){
+            stackT.shift()
+        }else{
+            stackT.unshift(T.charAt(i))
+        }
+    }
+    while(stackS.length>0 && stackT.length>0){
+        let elemS=stackS.shift(),elemT=stackT.shift()
+        if(elemS!==elemT){
+            return false
+        }
+    }
+    return stackS.length===0 && stackT.length===0
+}
+
+console.log(backspaceCompare("ab#c", "ad#c"));
