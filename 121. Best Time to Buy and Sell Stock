@@ -1,0 +1,29 @@
+Solution-1
+const maxProfit = (prices) =>{
+    let left=0,right=1,maxProfitValue=0
+    while(right<prices.length){
+        if(prices[left]<prices[right]){
+            let profit=prices[right]-prices[left]
+            maxProfitValue=Math.max(maxProfitValue,profit)
+        }else{
+            left=right
+        }
+        right++
+    }
+    return maxProfitValue
+}
+
+console.log(maxProfit([7,1,5,3,6,4]))
+
+Solution-2
+const maxProfit = (prices) =>{
+    let maxProfitSoFar=0
+    let minPrice=prices[0]
+    for(let currentPrice of prices){
+        maxProfit=Math.max(maxProfitSoFar,currentPrice-minPrice)
+        minPrice=Math.min(minPrice,currentPrice)
+    }
+    return maxProfitSoFar
+}
+
+console.log(maxProfit([7,1,5,3,6,4]))
