@@ -1,1 +1,45 @@
+Soultion-1
+function reverseStr(s,k){
+    const length=s.length
+    const charArray=s.split("")
+    for(let startIndex=0;startIndex<length;startIndex+=k*2){
+        let leftPointer=startIndex,rightPointer=Math.min(startIndex+k-1,length-1)
+        while(leftPointer<rightPointer){
+            [charArray[leftPointer],charArray[rightPointer]]=[charArray[rightPointer],charArray[leftPointer]]
+            leftPointer++
+            rightPointer--
+        }
+    }
+    return charArray.join("")
+}
 
+console.log(reverseStr("abcdefghijklmnop",3))
+
+Solution-2
+
+var reverseStr = function (s, k){
+    if(k<=1){
+        return s
+    }
+    let ret=""
+    for(let iterK=0;iterK*k<s.length;iterK=iterK+2){
+        const start=iterK*k
+        const end=start+k-1
+        ret+=reverse(s,start,end)
+        ret+=s.slice(end+1,k*(iterK+2))
+    }
+    return ret
+}
+
+function reverse(s,start,end){
+    let ret=""
+    if(end>=s.length){
+        end=s.length-1
+    }
+    while(start<=end){
+        ret+=s.charAt(end)
+        end--
+    }
+    return ret
+}
+console.log(reverseStr("abcdefghijklmnop",3))
