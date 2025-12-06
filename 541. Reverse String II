@@ -43,3 +43,15 @@ function reverse(s,start,end){
     return ret
 }
 console.log(reverseStr("abcdefghijklmnop",3))
+
+Solution-3
+function reverseStr(s,k){
+    const length=s.length,resArr=s.split('')
+    for(let i=0;i<length;i+=2*k){
+        let l=i-1,r=i+k>length?length:i+k
+        while(++l<--r) [resArr[r],resArr[l]]=[resArr[l],resArr[r]]
+    }
+    return resArr.join('')
+}
+
+console.log(reverseStr("abcdefghijklmnop",3))
