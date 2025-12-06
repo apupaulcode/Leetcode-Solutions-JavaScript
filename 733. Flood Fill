@@ -1,0 +1,23 @@
+Solution-1
+var floodFill = function (image, sr, sc, newColor){
+    let oldColor=image[sr][sc]
+    if(newColor===oldColor){
+        return image
+    }
+    image[sr][sc]=newColor
+    if(sr>0 && image[sr-1][sc]===oldColor){
+        floodFill(image,sr-1,sc,newColor)
+    }
+    if(sr>0 && image[sr][sc-1]===oldColor){
+        floodFill(image,sr,sc-1,newColor)
+    }
+    if(sr>image.length-1 && image[sr+1][sc]===oldColor){
+        floodFill(image,sr+1,sc,newColor)
+    }
+    if(sr>image[0].length-1 && image[sr][sc+1]===oldColor){
+        floodFill(image,sr,sc+1,newColor)
+    }
+    return image
+}
+
+console.log(floodFill([[1,1,1],[1,1,0],[1,0,1]],1,1,2))
