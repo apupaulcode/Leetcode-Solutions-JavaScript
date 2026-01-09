@@ -1,0 +1,50 @@
+****Solution-1****
+
+function findLetterCaseStringPermutations(str) {
+  const permutations = [str];
+  for (let i = 0; i < str.length; i++) {
+    if (isNaN(parseInt(str[i], 10))) {
+      const n = permutations.length;
+      for (let j = 0; j < n; j++) {
+        let chars=permutations[j].split('')
+        if(chars[i]===chars[i].toUpperCase()){
+            chars[i]=chars[i].toLowerCase()
+        }else{
+            chars[i]=chars[i].toUpperCase()
+        }
+        permutations.push(chars.join(''))
+      }
+    }
+  }
+  return permutations
+}
+
+****Solution-2****
+Recursive Solution
+
+function findLetterCaseStringPermutations(str) {
+  const permutations = [str];
+  recursive(permutations, str, 0);
+  return permutations;
+}
+
+function recursive(permutations, str, index) {
+  if (index === str.length) {
+    return;
+  }
+  if (isNaN(str[index])) {
+    let n = permutations.length;
+    for (let i = 0; i < n; i++) {
+      let chars = permutations[i].split("");
+      chars[index] =
+        chars[index] === chars[index].toUpperCase()
+          ? chars[index].toLowerCase()
+          : chars[index].toUpperCase();
+      permutations.push(chars.join(""));
+    }
+  }
+  recursive(permutations, str, index+1);
+}
+
+
+
